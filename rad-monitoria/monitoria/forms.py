@@ -4,13 +4,35 @@ from .models import Disciplina, Duvida
 
 
 class DuvidaForm(forms.ModelForm):
+
     class Meta:
         model = Duvida
-        fields = ("titulo", "descricao", "disciplina")
+        fields = (
+            "titulo",
+            "descricao",
+            "disciplina",
+        )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields["disciplina"].queryset = Disciplina.objects.filter(
-            ativa=True
+        self.fields["disciplina"].queryset = (
+            Disciplina.objects.filter(ativa=True)
         )
+
+
+class RespostaForm(forms.ModelForm):
+
+    class Meta:
+        model = Duvida
+        fields = ("resposta",)
+
+    def clean_resposta(self):
+        resposta = self.cleaned_data["resposta"]
+
+        if not resposta.strip():
+            raise forms.ValidationError(
+                "A resposta não pode ficar em branco."
+            )
+
+        return resposta

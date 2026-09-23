@@ -1,9 +1,54 @@
-<h1>Login</h1>
+{% extends "base.html" %}
 
-<form method="post">
-    {% csrf_token %}
+{% block titulo %}
+Entrar | Monitoria IFPB
+{% endblock %}
 
-    {{ form.as_p }}
+{% block conteudo %}
 
-    <button type="submit">Entrar</button>
-</form>
+<div class="login-wrapper">
+
+    <div class="form-card">
+
+        <div class="cabecalho-pagina">
+
+            <h2>Bem-vindo!</h2>
+
+            <p>
+                Entre na sua conta para acessar o sistema de monitoria.
+            </p>
+
+        </div>
+
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button class="botao" type="submit">
+                Entrar
+            </button>
+
+        </form>
+
+
+        <p style="margin-top: 25px;">
+
+            Ainda não possui uma conta?
+
+            <a
+                href="{% url 'monitoria:cadastro' %}"
+                style="color: #1976d2; font-weight: bold;"
+            >
+                Cadastre-se
+            </a>
+
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

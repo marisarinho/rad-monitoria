@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Base de conhecimento | Monitoria IFPB
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="cabecalho-pagina">
+
+    <h2>Base de conhecimento</h2>
+
+    <p>
+        Consulte dúvidas que já receberam respostas dos monitores.
+    </p>
+
+</div>
+
+
+<form class="busca" method="get">
+
+    <input
+        type="text"
+        name="q"
+        value="{{ termo }}"
+        placeholder="Pesquise pelo título ou descrição..."
+    >
+
+    <button class="botao" type="submit">
+        Buscar
+    </button>
+
+</form>
+
+
+{% if duvidas %}
+
+    {% for duvida in duvidas %}
+
+        <article class="card">
+
+            <span class="disciplina">
+                {{ duvida.disciplina }}
+            </span>
+
+            <h3 class="card-titulo">
+                {{ duvida.titulo }}
+            </h3>
+
+            <p class="card-descricao">
+                {{ duvida.descricao }}
+            </p>
+
+            <div class="resposta">
+
+                <h3>Resposta</h3>
+
+                <p>
+                    {{ duvida.resposta }}
+                </p>
+
+            </div>
+
+        </article>
+
+    {% endfor %}
+
+{% else %}
+
+    <div class="vazio">
+
+        <h3>Nenhum resultado encontrado</h3>
+
+        <p>
+            Tente pesquisar outro termo.
+        </p>
+
+    </div>
+
+{% endif %}
+
+{% endblock %}

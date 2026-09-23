@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block titulo %}
+        Monitoria IFPB
+        {% endblock %}
+    </title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f6f9;
+            color: #263238;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .topo {
+            background: linear-gradient(135deg, #0d47a1, #1976d2);
+            color: white;
+            padding: 28px 20px 22px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        }
+
+        .topo-conteudo {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .titulo-site {
+            margin: 0;
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .subtitulo-site {
+            margin: 7px 0 0;
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .navegacao {
+            background-color: white;
+            border-bottom: 1px solid #e1e5ea;
+        }
+
+        .navegacao-conteudo {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+        }
+
+        .nav-link {
+            color: #455a64;
+            font-weight: 600;
+            padding: 10px 14px;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #1565c0;
+            background-color: #eaf3fc;
+        }
+
+        .nav-destaque {
+            background-color: #1976d2;
+            color: white;
+        }
+
+        .nav-destaque:hover {
+            background-color: #1565c0;
+            color: white;
+        }
+
+        .usuario {
+            margin-left: auto;
+            color: #607d8b;
+            font-size: 14px;
+        }
+
+        .logout-form {
+            margin: 0;
+        }
+
+        .logout {
+            border: none;
+            background: none;
+            color: #c62828;
+            cursor: pointer;
+            font-weight: 600;
+            padding: 10px;
+        }
+
+        .logout:hover {
+            background-color: #ffebee;
+            border-radius: 8px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 32px auto;
+            padding: 0 20px;
+        }
+
+        .cabecalho-pagina {
+            margin-bottom: 24px;
+        }
+
+        .cabecalho-pagina h2 {
+            margin: 0 0 6px;
+            font-size: 26px;
+            color: #263238;
+        }
+
+        .cabecalho-pagina p {
+            margin: 0;
+            color: #78909c;
+        }
+
+        .card {
+            background-color: white;
+            border: 1px solid #e2e7ec;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-titulo {
+            margin: 8px 0;
+            color: #1565c0;
+            font-size: 19px;
+        }
+
+        .card-descricao {
+            color: #546e7a;
+            line-height: 1.6;
+        }
+
+        .disciplina {
+            color: #607d8b;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 6px 11px;
+            border-radius: 20px;
+            background-color: #e3f2fd;
+            color: #1565c0;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .form-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e1e5ea;
+        }
+
+        .form-card p {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #37474f;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            border: 1px solid #cfd8dc;
+            border-radius: 8px;
+            padding: 11px 12px;
+            font-size: 15px;
+            outline: none;
+            background-color: #fff;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #1976d2;
+            box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.10);
+        }
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .botao {
+            display: inline-block;
+            border: none;
+            border-radius: 8px;
+            background-color: #1976d2;
+            color: white;
+            padding: 11px 20px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .botao:hover {
+            background-color: #1565c0;
+        }
+
+        .botao-verde {
+            background-color: #2e7d32;
+        }
+
+        .botao-verde:hover {
+            background-color: #1b5e20;
+        }
+
+        .botao-vermelho {
+            background-color: #c62828;
+        }
+
+        .botao-vermelho:hover {
+            background-color: #b71c1c;
+        }
+
+        .acoes {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        .resposta {
+            margin-top: 22px;
+            padding: 18px;
+            background-color: #f1f8e9;
+            border-left: 4px solid #43a047;
+            border-radius: 8px;
+        }
+
+        .resposta h3 {
+            margin-top: 0;
+            color: #2e7d32;
+        }
+
+        .mensagem {
+            max-width: 1000px;
+            margin: 18px auto 0;
+            padding: 12px 20px;
+            border-radius: 8px;
+            background-color: #e3f2fd;
+            color: #0d47a1;
+        }
+
+        .vazio {
+            text-align: center;
+            background-color: white;
+            padding: 45px 20px;
+            border-radius: 12px;
+            color: #78909c;
+            border: 1px solid #e2e7ec;
+        }
+
+        .busca {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .busca input {
+            flex: 1;
+        }
+
+        .login-wrapper {
+            max-width: 500px;
+            margin: 45px auto;
+        }
+
+        .rodape {
+            text-align: center;
+            color: #90a4ae;
+            padding: 30px 20px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 700px) {
+            .navegacao-conteudo {
+                flex-wrap: wrap;
+            }
+
+            .usuario {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .busca {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="topo">
+    <div class="topo-conteudo">
+        <h1 class="titulo-site">Monitoria IFPB</h1>
+        <p class="subtitulo-site">
+            Sistema de apoio à monitoria acadêmica
+        </p>
+    </div>
+</header>
+
+
+{% if user.is_authenticated %}
+
+<nav class="navegacao">
+
+    <div class="navegacao-conteudo">
+
+        <a
+            class="nav-link"
+            href="{% url 'monitoria:lista_duvidas' %}"
+        >
+            Dúvidas
+        </a>
+
+        <a
+            class="nav-link nav-destaque"
+            href="{% url 'monitoria:criar_duvida' %}"
+        >
+            + Abrir dúvida
+        </a>
+
+        <a
+            class="nav-link"
+            href="{% url 'monitoria:base_conhecimento' %}"
+        >
+            Base de conhecimento
+        </a>
+
+        <span class="usuario">
+            Olá, <strong>{{ user.username }}</strong>
+        </span>
+
+        <form
+            class="logout-form"
+            method="post"
+            action="{% url 'logout' %}"
+        >
+            {% csrf_token %}
+
+            <button class="logout" type="submit">
+                Sair
+            </button>
+
+        </form>
+
+    </div>
+
+</nav>
+
+{% endif %}
+
+
+{% if messages %}
+
+    {% for message in messages %}
+
+        <div class="mensagem">
+            {{ message }}
+        </div>
+
+    {% endfor %}
+
+{% endif %}
+
+
+<main class="container">
+
+    {% block conteudo %}
+    {% endblock %}
+
+</main>
+
+
+<footer class="rodape">
+    Sistema de Apoio à Monitoria · IFPB
+</footer>
+
+</body>
+
+</html>
