@@ -1,15 +1,71 @@
-<h1>Minhas dúvidas</h1>
+{% extends "base.html" %}
+
+{% block titulo %}
+Dúvidas | Monitoria IFPB
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="cabecalho-pagina">
+
+    <h2>Dúvidas</h2>
+
+    <p>
+        Acompanhe as dúvidas disponíveis para o seu perfil.
+    </p>
+
+</div>
+
 
 {% if duvidas %}
-    <ul>
-        {% for duvida in duvidas %}
-            <li>
-                <strong>{{ duvida.titulo }}</strong>
-                - {{ duvida.disciplina }}
-                - {{ duvida.get_situacao_display }}
-            </li>
-        {% endfor %}
-    </ul>
+
+    {% for duvida in duvidas %}
+
+        <a href="{% url 'monitoria:detalhe_duvida' duvida.pk %}">
+
+            <article class="card">
+
+                <span class="disciplina">
+                    {{ duvida.disciplina }}
+                </span>
+
+                <h3 class="card-titulo">
+                    {{ duvida.titulo }}
+                </h3>
+
+                <p class="card-descricao">
+                    {{ duvida.descricao|truncatewords:30 }}
+                </p>
+
+                <span class="status">
+                    {{ duvida.get_situacao_display }}
+                </span>
+
+            </article>
+
+        </a>
+
+    {% endfor %}
+
 {% else %}
-    <p>Nenhuma dúvida encontrada.</p>
+
+    <div class="vazio">
+
+        <h3>Nenhuma dúvida encontrada</h3>
+
+        <p>
+            Não há dúvidas para exibir neste momento.
+        </p>
+
+        <a
+            class="botao"
+            href="{% url 'monitoria:criar_duvida' %}"
+        >
+            Abrir uma dúvida
+        </a>
+
+    </div>
+
 {% endif %}
+
+{% endblock %}

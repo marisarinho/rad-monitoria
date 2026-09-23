@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+{{ duvida.titulo }} | Monitoria IFPB
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="cabecalho-pagina">
+
+    <h2>Detalhes da dúvida</h2>
+
+    <p>
+        Veja as informações e acompanhe o atendimento.
+    </p>
+
+</div>
+
+
+<article class="card">
+
+    <span class="disciplina">
+        {{ duvida.disciplina }}
+    </span>
+
+    <h2 class="card-titulo">
+        {{ duvida.titulo }}
+    </h2>
+
+    <p class="card-descricao">
+        {{ duvida.descricao }}
+    </p>
+
+
+    <p>
+        <strong>Autor:</strong>
+        {{ duvida.autor.username }}
+    </p>
+
+
+    <span class="status">
+        {{ duvida.get_situacao_display }}
+    </span>
+
+
+    {% if duvida.monitor_responsavel %}
+
+        <p>
+            <strong>Monitor responsável:</strong>
+            {{ duvida.monitor_responsavel.username }}
+        </p>
+
+    {% endif %}
+
+
+    {% if duvida.resposta %}
+
+        <div class="resposta">
+
+            <h3>Resposta do monitor</h3>
+
+            <p>
+                {{ duvida.resposta }}
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+    <div class="acoes">
+
+        {% if pode_assumir %}
+
+            <form
+                method="post"
+                action="{% url 'monitoria:assumir_duvida' duvida.pk %}"
+            >
+
+                {% csrf_token %}
+
+                <button class="botao" type="submit">
+                    Assumir atendimento
+                </button>
+
+            </form>
+
+        {% endif %}
+
+
+        {% if pode_encerrar %}
+
+            <form
+                method="post"
+                action="{% url 'monitoria:encerrar_duvida' duvida.pk %}"
+            >
+
+                {% csrf_token %}
+
+                <button
+                    class="botao botao-verde"
+                    type="submit"
+                >
+                    Encerrar dúvida
+                </button>
+
+            </form>
+
+        {% endif %}
+
+    </div>
+
+
+    {% if pode_responder %}
+
+        <div class="resposta">
+
+            <h3>Responder dúvida</h3>
+
+            <form
+                method="post"
+                action="{% url 'monitoria:responder_duvida' duvida.pk %}"
+            >
+
+                {% csrf_token %}
+
+                {{ resposta_form.as_p }}
+
+                <button
+                    class="botao botao-verde"
+                    type="submit"
+                >
+                    Enviar resposta
+                </button>
+
+            </form>
+
+        </div>
+
+    {% endif %}
+
+</article>
+
+
+<a
+    class="botao"
+    href="{% url 'monitoria:lista_duvidas' %}"
+>
+    ← Voltar
+</a>
+
+{% endblock %}

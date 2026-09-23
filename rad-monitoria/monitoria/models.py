@@ -13,6 +13,7 @@ class Disciplina(models.Model):
 
 
 class Duvida(models.Model):
+
     class Situacao(models.TextChoices):
         ABERTA = "aberta", "Aberta"
         EM_ATENDIMENTO = "em_atendimento", "Em atendimento"
