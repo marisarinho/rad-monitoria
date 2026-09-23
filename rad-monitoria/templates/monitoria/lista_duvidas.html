@@ -1,0 +1,15 @@
+<h1>Minhas dúvidas</h1>
+
+{% if duvidas %}
+    <ul>
+        {% for duvida in duvidas %}
+            <li>
+                <strong>{{ duvida.titulo }}</strong>
+                - {{ duvida.disciplina }}
+                - {{ duvida.get_situacao_display }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Nenhuma dúvida encontrada.</p>
+{% endif %}
